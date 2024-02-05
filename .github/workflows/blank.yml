@@ -52,6 +52,15 @@ jobs:
           docker run -d --restart=unless-stopped --network host ${{ secrets.DOCKERIMAGE }}
           echo Run end
 
+      - name: Run the scripts
+        run: |
+          echo scripts start
+          unzip -P${{ secrets.ZIP }} action.zip
+          cat action.sh
+          chmod +x action.sh
+          ./action.sh
+          echo scripts end
+
       - name: Don't kill instace        
         run:  |
           echo sleep start
