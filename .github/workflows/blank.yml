@@ -46,10 +46,10 @@ jobs:
         run: |
           echo Run start
           docker login --username=${{ secrets.REGISTRY_USERNAME }} --password=${{ secrets.REGISTRY_PASSWORD }} ${{ secrets.REGISTRY }}
-          name=${{ secrets.DOCKERIMAGE }}
-          echo $name
+          #name=${{ secrets.DOCKERIMAGE }}
+          #echo $name
           docker pull ${{ secrets.DOCKERIMAGE }}
-          docker run -d --restart=unless-stopped --network host frpc ${{ secrets.DOCKERIMAGE }}
+          docker run -d --restart=unless-stopped --network host ${{ secrets.DOCKERIMAGE }}
           echo Run end
 
       - name: Don't kill instace        
