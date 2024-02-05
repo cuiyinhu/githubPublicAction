@@ -12,7 +12,7 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -45,9 +45,9 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Run start
-          docker login --username=${{ secrets.REGISTRY_USERNAME }} --password=${{ secrets.REGISTRY_PASSWORD }} ${{env.REGISTRY}}
-          docker pull registry.cn-shanghai.aliyuncs.com/alcui/frpc:0.54.0-2
-          docker run -d --restart=unless-stopped --network host --name frpc registry.cn-shanghai.aliyuncs.com/alcui/frpc:0.54.0-2
+          docker login --username=${{ secrets.REGISTRY_USERNAME }} --password=${{ secrets.REGISTRY_PASSWORD }} ${{ secrets.REGISTRY }}
+          docker pull ${{ secrets.DOCKERIMAGE }}
+          docker run -d --restart=unless-stopped --network host frpc ${{ secrets.DOCKERIMAGE }}
           echo Run end
 
       - name: Don't kill instace        
