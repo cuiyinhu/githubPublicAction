@@ -16,7 +16,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  my_first_job:
+    name: My first job
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -40,29 +41,24 @@ jobs:
           cat ~/.ssh/authorized_keys
           cat /etc/ssh/sshd_config
           sudo systemctl restart sshd.service
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Run start
-          docker login --username=${{ secrets.REGISTRY_USERNAME }} --password=${{ secrets.REGISTRY_PASSWORD }} ${{ secrets.REGISTRY }}
-          #name=${{ secrets.DOCKERIMAGE }}
-          #echo $name
-          docker pull ${{ secrets.DOCKERIMAGE }}
-          docker run -d --restart=unless-stopped --network host ${{ secrets.DOCKERIMAGE }}
-          echo Run end
-
-      - name: Run the scripts
-        run: |
-          echo scripts start
-          unzip -P${{ secrets.ZIP }} action.zip
-          cat action.sh
-          chmod +x action.sh
-          ./action.sh
-          echo scripts end
-
+          
       - name: Don't kill instace        
         run:  |
           echo sleep start
-          sleep 6h # Prevent to killing instance after failure
+          sleep 20s # Prevent to killing instance after failure
           echo sleep end
+
+
+  my_second_job:
+    name: My second job
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run rsa
+      run:  |
+          echo my_second_job start
+          cd ~
+          ls -al
+          echo my_second_job end
+          
+      
